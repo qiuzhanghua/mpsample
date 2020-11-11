@@ -6,10 +6,11 @@ plugins {
     kotlin("jvm") version "1.4.10"
     kotlin("kapt") version "1.4.10"
     kotlin("plugin.spring") version "1.4.10"
+    kotlin("plugin.jpa") version "1.4.10"
 }
 
 group = "com.example"
-version = "0.2.0-SNAPSHOT"
+version = "0.3.0"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 configurations {

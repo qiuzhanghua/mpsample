@@ -13,12 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import java.time.LocalDate
 
 
-@SpringBootTest
-class MpsampleApplicationTests {
-
-    @Test
-    fun contextLoads() {
-    }
+class MapStructTests {
 
     @Test
     fun testMapStruct() {
