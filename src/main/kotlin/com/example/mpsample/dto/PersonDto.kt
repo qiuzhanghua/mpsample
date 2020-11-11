@@ -1,4 +1,4 @@
-package com.example.mpsample.model
+package com.example.mpsample.dto
 
 import java.time.LocalDate
 

@@ -1,7 +1,11 @@
 package com.example.mpsample
 
-import com.example.mpsample.model.*
-import com.example.mpsample.model.Target
+import com.example.mpsample.domain.Person
+import com.example.mpsample.domain.Source
+import com.example.mpsample.dto.PersonDto
+import com.example.mpsample.mapper.PersonConverter
+import com.example.mpsample.dto.Target
+import com.example.mpsample.mapper.SourceTargetMapper
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.mapstruct.factory.Mappers

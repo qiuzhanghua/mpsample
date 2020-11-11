@@ -1,4 +1,4 @@
-package com.example.mpsample.model
+package com.example.mpsample.domain
 
 import lombok.Data
 

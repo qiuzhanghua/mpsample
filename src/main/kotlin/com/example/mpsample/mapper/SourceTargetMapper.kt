@@ -1,5 +1,7 @@
-package com.example.mpsample.model
+package com.example.mpsample.mapper
 
+import com.example.mpsample.domain.Source
+import com.example.mpsample.dto.Target
 import org.mapstruct.InheritInverseConfiguration
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping

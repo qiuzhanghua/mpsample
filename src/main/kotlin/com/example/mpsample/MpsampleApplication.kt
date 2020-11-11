@@ -1,9 +1,9 @@
 package com.example.mpsample
 
-import com.example.mpsample.model.Person
-import com.example.mpsample.model.Source
-import com.example.mpsample.model.SourceTargetMapper
-import com.example.mpsample.model.Target
+import com.example.mpsample.domain.Person
+import com.example.mpsample.domain.Source
+import com.example.mpsample.mapper.SourceTargetMapper
+import com.example.mpsample.dto.Target
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
