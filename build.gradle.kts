@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "com.example"
-version = "0.1.0-SNAPSHOT"
+version = "0.2.0-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 configurations {
@@ -24,16 +24,22 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     compileOnly("org.projectlombok:lombok")
     implementation("org.mapstruct:mapstruct:1.4.1.Final")
+    implementation("com.h2database:h2:1.4.200")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     annotationProcessor("org.projectlombok:lombok")
     kapt("org.mapstruct:mapstruct-processor:1.4.1.Final")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
+    testImplementation("org.mockito:mockito-core:3.6.0")
+    testImplementation("org.skyscreamer:jsonassert:1.5.0")
 }
 
 tasks.withType<Test> {
