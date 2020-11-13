@@ -15,7 +15,7 @@ var mockitoVersion = "3.6.0"
 val h2databaseVersion = "1.4.200"
 
 group = "com.example"
-version = "0.4.0"
+version = "0.5.0-snapshot"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 configurations {
