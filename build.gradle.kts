@@ -11,7 +11,6 @@ plugins {
 
 val mapstructVersion = "1.4.1.Final"
 val jsonassertVersion =  "1.5.0"
-var mockitoVersion = "3.6.0"
 val h2databaseVersion = "1.4.200"
 
 group = "com.example"
@@ -44,7 +43,6 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
-    testImplementation("org.mockito:mockito-core:${mockitoVersion}")
     testImplementation("org.skyscreamer:jsonassert:${jsonassertVersion}")
 }
 
