@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "2.3.5.RELEASE"
+    id("org.springframework.boot") version "2.4.0"
     id("io.spring.dependency-management") version "1.0.10.RELEASE"
     kotlin("jvm") version "1.4.10"
     kotlin("kapt") version "1.4.10"
@@ -9,8 +9,13 @@ plugins {
     kotlin("plugin.jpa") version "1.4.10"
 }
 
+val mapstructVersion = "1.4.1.Final"
+val jsonassertVersion =  "1.5.0"
+var mockitoVersion = "3.6.0"
+val h2databaseVersion = "1.4.200"
+
 group = "com.example"
-version = "0.4.0-snapshot"
+version = "0.4.0"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 configurations {
@@ -31,16 +36,16 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     compileOnly("org.projectlombok:lombok")
-    implementation("org.mapstruct:mapstruct:1.4.1.Final")
-    implementation("com.h2database:h2:1.4.200")
+    implementation("org.mapstruct:mapstruct:${mapstructVersion}")
+    implementation("com.h2database:h2:${h2databaseVersion}")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     annotationProcessor("org.projectlombok:lombok")
-    kapt("org.mapstruct:mapstruct-processor:1.4.1.Final")
+    kapt("org.mapstruct:mapstruct-processor:${mapstructVersion}")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
-    testImplementation("org.mockito:mockito-core:3.6.0")
-    testImplementation("org.skyscreamer:jsonassert:1.5.0")
+    testImplementation("org.mockito:mockito-core:${mockitoVersion}")
+    testImplementation("org.skyscreamer:jsonassert:${jsonassertVersion}")
 }
 
 tasks.withType<Test> {
