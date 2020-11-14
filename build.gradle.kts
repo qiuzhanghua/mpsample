@@ -10,7 +10,6 @@ plugins {
 }
 
 val mapstructVersion = "1.4.1.Final"
-val h2databaseVersion = "1.4.200"
 
 group = "com.example"
 version = "0.5.0-snapshot"
@@ -35,7 +34,7 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     compileOnly("org.projectlombok:lombok")
     implementation("org.mapstruct:mapstruct:${mapstructVersion}")
-    implementation("com.h2database:h2:${h2databaseVersion}")
+    implementation("com.h2database:h2")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     annotationProcessor("org.projectlombok:lombok")
     kapt("org.mapstruct:mapstruct-processor:${mapstructVersion}")
