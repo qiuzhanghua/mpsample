@@ -9,10 +9,10 @@ plugins {
     kotlin("plugin.jpa") version "1.4.10"
 }
 
-val mapstructVersion = "1.4.1.Final"
+val mapstructVersion = project.properties["mapstructVersion"]
 
 group = "com.example"
-version = "0.5.0-snapshot"
+version = "0.6.0"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 configurations {
@@ -26,8 +26,7 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter")
-    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
@@ -41,6 +40,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
+    testImplementation("io.projectreactor:reactor-test")
 }
 
 tasks.withType<Test> {

@@ -8,62 +8,66 @@ import org.junit.jupiter.api.Test
 import org.mockito.Mockito
 import org.skyscreamer.jsonassert.JSONAssert
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
-import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest
 import org.springframework.boot.test.mock.mockito.MockBean
-import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
-import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import org.springframework.test.web.reactive.server.WebTestClient
+import org.springframework.test.web.reactive.server.expectBody
 
-//@SpringBootTest
-//@AutoConfigureMockMvc
-@WebMvcTest(ItemController::class)
+@WebFluxTest(ItemController::class)
 class ItemControllerTests {
 
     @Autowired
-    lateinit var mockMvc: MockMvc
+    lateinit var client: WebTestClient
 
     @MockBean
     lateinit var itemService: ItemService
 
     @Test
     fun testItemControllerOne() {
-        Mockito.`when`(itemService.retrieveOne()).thenReturn(Item(2, "Watch", 4000, 1))
+        val item = Item(2, "Watch", 4000, 1)
+        Mockito.`when`(itemService.retrieveOne()).thenReturn(item)
 
-        val request = MockMvcRequestBuilders.get("/item").accept(MediaType.APPLICATION_JSON)
-        val result = mockMvc.perform(request)
-                .andExpect(status().isOk)
-                .andReturn()
-        Assertions.assertNotNull(result)
-        Assertions.assertEquals(result.response.status, HttpStatus.OK.value())
+        val response = client.get().uri("/item").accept(MediaType.APPLICATION_JSON).exchange()
+        response.expectStatus().isOk
+
+        Assertions.assertEquals(item, response.expectBody<Item>().returnResult().responseBody)
+        // or
+        val s = response.expectBody<String>().returnResult().responseBody
         val expected = """
                         |{id:2, "name":"Watch", price:4000, "count":1}
                         |""".trimMargin()
-        JSONAssert.assertEquals(expected, result.response.contentAsString, true)
+        JSONAssert.assertEquals(expected, s, true)
     }
 
 
     @Test
     fun testItemControllerAll() {
-        Mockito.`when`(itemService.retrieveAll()).thenReturn(listOf(
+        val items = listOf(
                 Item(1, "iPhone", 10000, 2),
                 Item(2, "Watch", 4000, 1)
-        ))
+        )
+        Mockito.`when`(itemService.retrieveAll()).thenReturn(items)
 
-        val request = MockMvcRequestBuilders.get("/items").accept(MediaType.APPLICATION_JSON)
-        val result = mockMvc.perform(request)
-                .andExpect(status().isOk)
-                .andReturn()
-        Assertions.assertNotNull(result)
-        Assertions.assertEquals(result.response.status, HttpStatus.OK.value())
+        val response = client.get().uri("/items").accept(MediaType.APPLICATION_JSON).exchange()
+        response.expectStatus().isOk
+
+        Assertions.assertEquals(items, response.expectBody<List<Item>>().returnResult().responseBody)
+        // or
+        val s = response.expectBody<String>().returnResult().responseBody
         val expected = """
-                        |[{id:1, name:"iPhone", price:10000, count:2}, 
+                        |[{id:1, name:"iPhone", price:10000, count:2},
                         |{id:2, "name":"Watch", price:4000, "count":1}]
                         |""".trimMargin()
-        JSONAssert.assertEquals(expected, result.response.contentAsString, true)
+        JSONAssert.assertEquals(expected, s, true)
     }
 
 }
+
+// see
+// https://howtodoinjava.com/spring-webflux/spring-webflux-tutorial/
+// https://www.sudoinit5.com/post/spring-boot-testing-producer/
+// https://grokonez.com/testing/springboot-webflux-test-webfluxtest
+// https://blog.knoldus.com/spring-webflux-how-to-test-your-controllers-using-webtestclient/
+// for more
+//

@@ -3,31 +3,31 @@ package com.example.mpsample.controller
 import com.example.mpsample.web.HelloController
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
+import org.mockito.junit.jupiter.MockitoExtension
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
+import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
-import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import org.springframework.http.server.reactive.ServerHttpRequest
+import org.springframework.test.web.reactive.server.WebTestClient
+import org.springframework.test.web.reactive.server.expectBody
+import org.springframework.test.web.reactive.server.returnResult
 
-@WebMvcTest(HelloController::class)
+@WebFluxTest(HelloController::class)
 class HelloControllerTests {
 
     @Autowired
-    lateinit var mockMvc: MockMvc
+    lateinit var client: WebTestClient
 
     @Test
     fun testHelloController() {
-        // two method to perform test
-        val request = MockMvcRequestBuilders.get("/hello").accept(MediaType.APPLICATION_JSON)
-        val result = mockMvc.perform(request)
-                .andExpect(status().isOk)
-                .andExpect(content().string("Hello"))
-                .andReturn()
-        Assertions.assertNotNull(result)
-        Assertions.assertEquals(result.response.status, HttpStatus.OK.value())
-        Assertions.assertEquals("Hello", result.response.contentAsString)
+
+        val response = client.get().uri("/hello").accept(MediaType.APPLICATION_JSON).exchange()
+        response.expectStatus().isOk
+        println(response.expectBody<String>())
+        Assertions.assertEquals("Hello", response.returnResult<String>().responseBody.blockLast())
     }
 }
