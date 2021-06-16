@@ -12,7 +12,7 @@ plugins {
 val mapstructVersion: String by project
 
 group = "com.example"
-version = "0.7.0"
+version = "0.8.0"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 configurations {
